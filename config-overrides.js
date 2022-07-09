@@ -4,6 +4,7 @@ const { alias } = require('react-app-rewire-alias');
 module.exports = function override (config) {
 	alias({
 		'@common': 'src/features/common',
+		'@prefetch': 'src/features/prefetch/index.ts',
 		'@home': 'src/features/home',
 		'@documents': 'src/features/documents',
 		'@templates': 'src/features/templates',

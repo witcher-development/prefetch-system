@@ -1,24 +1,10 @@
-import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import React from 'react';
 
-import { fetchAutomationsPageData, automationsPageState } from '@automations';
+import { useFetchAutomationsPageData } from '@automations';
 
 
 export const AutomationsPage = () => {
-	const [pageState, setPageState] = useRecoilState(automationsPageState);
-
-	useEffect(() => {
-		const fetch = async () => {
-			setPageState({
-				state: 'loading'
-			});
-			setPageState({
-				state: 'loaded',
-				data: await fetchAutomationsPageData() as { title: string }
-			});
-		};
-		fetch();
-	}, []);
+	const pageState = useFetchAutomationsPageData();
 
 	if (pageState.state === 'not_loaded') {
 		return <>havent started loading yet</>;

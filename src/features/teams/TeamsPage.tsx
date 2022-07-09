@@ -1,24 +1,10 @@
-import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import React from 'react';
 
-import { fetchTeamsPageData, teamsPageState } from '@teams';
+import { useFetchTeamsPageData } from '@teams';
 
 
 export const TeamsPage = () => {
-	const [pageState, setPageState] = useRecoilState(teamsPageState);
-
-	useEffect(() => {
-		const fetch = async () => {
-			setPageState({
-				state: 'loading'
-			});
-			setPageState({
-				state: 'loaded',
-				data: await fetchTeamsPageData() as { title: string }
-			});
-		};
-		fetch();
-	}, []);
+	const pageState = useFetchTeamsPageData();
 
 	if (pageState.state === 'not_loaded') {
 		return <>havent started loading yet</>;
