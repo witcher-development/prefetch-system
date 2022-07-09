@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@router": ["./router"],
+      "@env": ["./env.ts"],
+      "@common/*": ["./features/common/*"],
+      "@home": ["./features/home"],
+      "@documents": ["./features/documents"],
+      "@templates": ["./features/templates"],
+      "@automations": ["./features/automations"],
+      "@teams": ["./features/teams"],
+      "@utils/*": ["./utils/*"]
+    }
+  }
+}
