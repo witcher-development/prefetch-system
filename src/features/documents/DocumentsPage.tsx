@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '@store';
@@ -8,6 +8,10 @@ import { useFetchDocumentsPageData } from './logic';
 
 
 export const DocumentsPage = () => {
+	useEffect(() => {
+		console.log('DocumentsPage render');
+	}, []);
+
 	useFetchDocumentsPageData();
 	const pageData = useSelector((state: RootState) => state.documentsPageState);
 

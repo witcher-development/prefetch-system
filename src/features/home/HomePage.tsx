@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '@store';
@@ -8,6 +8,10 @@ import { useFetchHomePageData } from './logic';
 
 
 export const HomePage = () => {
+	useEffect(() => {
+		console.log('HomePage render');
+	}, []);
+
 	useFetchHomePageData();
 	const pageData = useSelector((state: RootState) => state.homePageState);
 

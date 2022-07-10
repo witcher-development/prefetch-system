@@ -5,8 +5,12 @@ import { api } from '@documents';
 
 
 export const fetchDocumentsPageData = async () => {
+	console.log('fetchDocumentsPageData init');
+
 	const pageData = store.getState().documentsPageState;
 	if (pageData.state !== 'not_loaded') return;
+
+	console.log('fetchDocumentsPageData started');
 
 	const setPageState = store.dispatch.documentsPageState.setPageState;
 

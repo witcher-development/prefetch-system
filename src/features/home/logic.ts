@@ -5,8 +5,12 @@ import { api } from '@home';
 
 
 export const fetchHomePageData = async () => {
+	console.log('fetchHomePageData init');
+
 	const pageData = store.getState().homePageState;
 	if (pageData.state !== 'not_loaded') return;
+
+	console.log('fetchHomePageData started');
 
 	const setPageState = store.dispatch.homePageState.setPageState;
 
