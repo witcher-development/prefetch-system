@@ -4,6 +4,7 @@
     "paths": {
       "@router": ["./router"],
       "@env": ["./env.ts"],
+      "@store": ["./store/index.ts"],
       "@common/*": ["./features/common/*"],
       "@prefetch": ["./features/prefetch/index.ts"],
       "@home": ["./features/home"],

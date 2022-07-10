@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { HomePageData } from './store';
+
 
 export const fetchHomePageData = async () => {
 	await new Promise((r) => setTimeout(r, 1500));
@@ -7,5 +9,5 @@ export const fetchHomePageData = async () => {
 	const response = await axios.get('', {
 		data: 'home page'
 	});
-	return response.data;
+	return { title: response.data } as HomePageData;
 };

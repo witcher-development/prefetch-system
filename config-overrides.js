@@ -11,6 +11,7 @@ module.exports = function override (config) {
 		'@automations': 'src/features/automations',
 		'@teams': 'src/features/teams',
 		'@router': 'src/router',
+		'@store': 'src/store',
 		'@env': 'src/env.ts',
 		'@utils': 'src/utils',
 	})(config);

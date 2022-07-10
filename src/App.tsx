@@ -1,13 +1,14 @@
 import React from 'react';
-import { RecoilRoot } from 'recoil';
+import { Provider } from 'react-redux';
 
 import { MainRouter } from '@router';
+import { store } from '@store';
 import { Prefetch } from '@prefetch';
 
 
 export const App = () => (
-	<RecoilRoot>
+	<Provider store={store}>
 		<MainRouter />
 		<Prefetch />
-	</RecoilRoot>
+	</Provider>
 );

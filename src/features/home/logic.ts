@@ -1,25 +1,26 @@
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
 
-import { fetchHomePageData, homePageState } from '@home';
+import { store } from '@store';
+import { api } from '@home';
 
+
+export const fetchHomePageData = async () => {
+	const pageData = store.getState().homePageState;
+	if (pageData.state !== 'not_loaded') return;
+
+	const setPageState = store.dispatch.homePageState.setPageState;
+
+	setPageState({
+		state: 'loading'
+	});
+	setPageState({
+		state: 'loaded',
+		data: await api.fetchHomePageData()
+	});
+};
 
 export const useFetchHomePageData = () => {
-	const [pageData, setPageData] = useRecoilState(homePageState);
-
 	useEffect(() => {
-		if (pageData.state === 'loaded') return;
-		const fetch = async () => {
-			setPageData({
-				state: 'loading'
-			});
-			setPageData({
-				state: 'loaded',
-				data: await fetchHomePageData() as { title: string }
-			});
-		};
-		fetch();
+		fetchHomePageData();
 	}, []);
-
-	return pageData;
 };

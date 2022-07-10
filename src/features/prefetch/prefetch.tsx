@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,  } from 'react';
 
-import { useFetchHomePageData } from '@home';
-import { useFetchDocumentsPageData } from '@documents';
+import { fetchHomePageData } from '@home';
+import { fetchDocumentsPageData } from '@documents';
 import { useFetchTemplatesPageData } from '@templates';
 import { useFetchAutomationsPageData } from '@automations';
 import { useFetchTeamsPageData } from '@teams';
@@ -10,19 +10,19 @@ import { networkActivity } from './networkTracker';
 
 
 const priority = [
-	useFetchHomePageData,
-	useFetchDocumentsPageData,
-	useFetchTemplatesPageData,
-	useFetchAutomationsPageData,
-	useFetchTeamsPageData
+	fetchHomePageData,
+	fetchDocumentsPageData,
+	// useFetchTemplatesPageData,
+	// useFetchAutomationsPageData,
+	// useFetchTeamsPageData
 ];
 
 const prefetch = async (currentIndex = 0) => {
-	if (currentIndex > priority.length) return;
+	if (currentIndex >= priority.length) return;
 	if (networkActivity.isNetworkFree()) {
 		console.log('running priority: ', currentIndex);
 		priority[currentIndex]();
-		prefetch(currentIndex++);
+		prefetch(currentIndex + 1);
 	} else {
 		console.log('stuck on priority: ', currentIndex);
 		await new Promise((r) => setTimeout(r, 500));

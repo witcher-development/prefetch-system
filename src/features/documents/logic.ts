@@ -1,25 +1,26 @@
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
 
-import { fetchDocumentsPageData, documentsPageState } from '@documents';
+import { store } from '@store';
+import { api } from '@documents';
 
+
+export const fetchDocumentsPageData = async () => {
+	const pageData = store.getState().documentsPageState;
+	if (pageData.state !== 'not_loaded') return;
+
+	const setPageState = store.dispatch.documentsPageState.setPageState;
+
+	setPageState({
+		state: 'loading'
+	});
+	setPageState({
+		state: 'loaded',
+		data: await api.fetchDocumentsPageData()
+	});
+};
 
 export const useFetchDocumentsPageData = () => {
-	const [pageData, setPageData] = useRecoilState(documentsPageState);
-
 	useEffect(() => {
-		if (pageData.state === 'loaded') return;
-		const fetch = async () => {
-			setPageData({
-				state: 'loading'
-			});
-			setPageData({
-				state: 'loaded',
-				data: await fetchDocumentsPageData() as { title: string }
-			});
-		};
-		fetch();
+		fetchDocumentsPageData();
 	}, []);
-
-	return pageData;
 };

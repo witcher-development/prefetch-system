@@ -1,11 +1,5 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 
-
-const getMockError = (config: AxiosRequestConfig) => {
-	const mockError = new Error(config.data);
-
-	return Promise.reject(mockError);
-};
 
 const getMockResponse = (mockError: Error) => {
 	const { message } = mockError;
@@ -18,7 +12,9 @@ const getMockResponse = (mockError: Error) => {
 	});
 };
 
-axios.interceptors.request.use((config) => getMockError(config), (error) => Promise.reject(error));
+axios.interceptors.request.use((request) => {
+	throw Error(request.data);
+}, (error) => Promise.reject(error));
 
 axios.interceptors.response.use((response) => response, (error) => getMockResponse(error));
 
@@ -31,13 +27,15 @@ class NetworkActivity {
 
 export const networkActivity = new NetworkActivity();
 
-axios.interceptors.request.use(() => {
+axios.interceptors.request.use((request) => {
 	networkActivity.pendingRequests++;
 	console.log('added pending request: ', networkActivity.pendingRequests);
+	return request;
 });
 
-axios.interceptors.response.use(() => {
+axios.interceptors.response.use((response) => {
 	networkActivity.pendingRequests--;
 	console.log('deleted pending request: ', networkActivity.pendingRequests);
-},);
+	return response;
+});
 

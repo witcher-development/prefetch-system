@@ -1,11 +1,19 @@
-import { atom } from 'recoil';
+import { createModel } from '@rematch/core';
 
+import { RootModel } from '@store';
 import { EntityState } from '@utils/EntityState';
 
 
-export const homePageState = atom<EntityState<{ title: string }>>({
-	key: 'homePage',
-	default: {
+export type HomePageData = { title: string }
+export type HomePageState = EntityState<HomePageData>
+
+export const homePageState = createModel<RootModel>()({
+	state: {
 		state: 'not_loaded'
+	} as HomePageState,
+	reducers: {
+		setPageState (_, payload: HomePageState) {
+			return payload;
+		}
 	}
 });

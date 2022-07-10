@@ -1,11 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
+import { RootState } from '@store';
 import { NavBar } from '@common/NavBar';
-import { useFetchDocumentsPageData } from '@documents';
+
+import { useFetchDocumentsPageData } from './logic';
 
 
 export const DocumentsPage = () => {
-	const pageData = useFetchDocumentsPageData();
+	useFetchDocumentsPageData();
+	const pageData = useSelector((state: RootState) => state.documentsPageState);
 
 	if (pageData.state === 'not_loaded') {
 		return <>havent started loading yet</>;
